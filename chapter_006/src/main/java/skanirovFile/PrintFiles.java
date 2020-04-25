@@ -1,12 +1,16 @@
-package SkanirovFile;
+package skanirovFile;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.nio.file.FileVisitResult.CONTINUE;
 public class PrintFiles implements FileVisitor<Path> {
 
+    static List<String> out = new ArrayList<>();
 
 
 
@@ -16,11 +20,11 @@ public class PrintFiles implements FileVisitor<Path> {
     }
 
     @Override
-    public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-        String ext = "js";
-        System.out.println(path.endsWith(ext));
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        out.add(file.toAbsolutePath().toString());
         return CONTINUE;
     }
+
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
@@ -31,5 +35,11 @@ public class PrintFiles implements FileVisitor<Path> {
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
         return CONTINUE;
     }
+    static List<String> result(String ext) {
+        List<String> result = new ArrayList<>();
+        out.stream().filter(el -> el.endsWith(ext)).forEach(result::add);
+        return result;
+    }
 }
+
 
