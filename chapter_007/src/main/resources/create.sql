@@ -1,10 +1,10 @@
 --создаем базу данных
-create  Data rolesmodeln;
+create  DATABASE rolesmodeln;
 --создаем таблицу
 use Data rolesmodeln;
 create table comments1 (
    id serial primary key,
-
+itemId INT REFERENCES Item(id),
    name varchar(2000)
 
 );
@@ -13,7 +13,7 @@ select * from comments1;
 --Создаем следующую таблицу
 create table atachs (
   id serial primary key,
-
+itemId INT REFERENCES Item(id),
   name varchar(2000)
 
 );
@@ -22,20 +22,27 @@ select * from atachs;
 --item - comments = one-to-many
         --item - attachs = one-to-many
 
-        create table item (
-        id serial primary key,
-          comments1_id int references comments1(id),
-           atachs_id int references atachs(id)
-                        );
+create table item (
+id serial primary key,
+
+
+user1_id INT REFERENCES User1(id),
+category_id INT REFERENCES Category(id),
+state_id INT REFERENCES State(id),
+name VARCHAR(256) NOT NULL, description TEXT NOT NULL
+);
+
+
+
    --заполняем таблицу item
-   insert into item(id, comments1_id, atachs_id) values (1,1,1) ;
+   insert into item(id, comments1_id, atachs_id,user1_id,category_id) values (1,1,1,1 ,1,1,'онлайм','Заявка на провайдера услуг');
 --read
 select * from item;
 --создаем таблицу user1 с ней связана таблица item пол принципу many-to-one
 create table user1(
 id serial primary key,
 	name varchar(2000),
-	item_id int references item(id)
+role_id int references role(id)
 );
 -- выводим ее
 select * from user1;
@@ -43,13 +50,14 @@ select * from user1;
 create table role(
 id serial primary key,
 	name varchar(2000),
-	user1_id int references user1(id)
+	role_id int
 
 );
 select * from role;
 --создаем таблицу rules она связана по принципу many-to-many с таблицей role
 create table rules(
 id serial primary key,
+rules_id int,
 	name varchar(2000)
 
 );
@@ -59,8 +67,8 @@ select * from rules;
 create table role_rules(
  id serial primary key,
 
-	role_id int references role(id),
-  rules_id int references rules(id)
+	role_id int references role(role_id),
+  rules_id int references rules(rules_id)
 );
 
 
@@ -69,7 +77,7 @@ select * from role_rules;
 create table category (
 id serial primary key,
 	name varchar(2000),
-	item_id int references item(id)
+
 
 );
 select * from category;
@@ -77,6 +85,6 @@ select * from category;
 create table state  (
 id serial primary key,
 	name varchar(2000),
-	item_id int references item(id)
+
 
 );
