@@ -12,7 +12,7 @@ public void whenWeTestnormalChatWork() {
     File answer = new File(System.getProperty("java.io.tmpdir") + "/answers.txt");
     List<String> tempList = new ArrayList<>(List.of(
             "Как дела?",
-            "Так нельзя",
+            "Mожно",
             "Возможно",
             "А когда мы пойдем гулять?",
             "Ты всегда все делаешь по своему"

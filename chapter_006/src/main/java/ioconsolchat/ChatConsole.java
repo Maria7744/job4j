@@ -27,7 +27,7 @@ public class ChatConsole {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Здравствуйте, я - консольный чат! Давайте поговорим!");
             System.out.println("Я замолчу, если скажите СТОП, и начну опять отвечать после ПРОДОЛЖИТЬ");
-            System.out.println("Введите ЗАКОНЧИТЬ, чтобы закрыть программу");
+            System.out.println("Введи ЗАКОНЧИТЬ, чтобы закрыть программу");
             do {
                 say = br.readLine();
                 if (ChatConsole.STOP.equals(say.toUpperCase())) {
